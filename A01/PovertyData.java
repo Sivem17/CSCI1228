@@ -65,7 +65,7 @@ public class PovertyData {
             array[i] = kbd2.nextDouble();
             kbd2.nextLine();
             //While loop for taking in valid input.
-            while (i < 0) {
+            while (array[i] < 0) {
                 System.out.println("The income must be non-negative.");
                 System.out.print("What is the income for family #"
                         + j + "? ");
