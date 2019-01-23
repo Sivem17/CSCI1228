@@ -61,10 +61,9 @@ public class Poem {
         System.out.println();
         printUnderlined(title);
         System.out.println();
-        
-//        System.out.println(Arrays.toString(lines));
+
         for (int i = 0; i < numLines; ++i) {
-            System.out.println(lines[i]);      // TODO: print each line of the poem
+            System.out.println(lines[i]);
         }
     }
     // ---------- Private Methods ----------------------------------------- //
