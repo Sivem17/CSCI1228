@@ -7,6 +7,7 @@ import java.util.Scanner;
  * MODIFY THIS FILE
  *
  * @author Mark Young -- A00000000
+ * @author Aitezaz Siddiqi (A00431079)
  */
 public class Rating {
 
