@@ -11,6 +11,7 @@ import java.util.Arrays;
  * A class to hold the title and lines of a poem. DO NOT REVISE THIS CLASS!
  *
  * @author Mark Young (A00000000)
+ * @author Aitezaz Siddiqi (A00431079)
  */
 public class Poem {
 
@@ -33,8 +34,10 @@ public class Poem {
      */
     public Poem(String title) {
         this.title = title;
-        lines = new String[MAX_LINES];  // TODO: initialize the array
-        numLines = 0;                   // TODO: initialize number of lines
+        // TODO: initialize the array
+        lines = new String[MAX_LINES];
+        // TODO: initialize number of lines
+        numLines = 0;
     }
 
     // ---------- Public Methods ------------------------------------------ //
@@ -45,10 +48,12 @@ public class Poem {
      * @param line the line to add to this poem.
      */
     public void addLine(String line) {
-        if (numLines < MAX_LINES) {     // TODO: check if there's space for another line
-            for (int i = 0; i < MAX_LINES; ++i) {
-                lines[i] = line;        // TODO: add the line to the array
-                numLines++;             // TODO: update the line count
+        // TODO: check if there's space for another line
+        if (numLines < MAX_LINES) {
+            lines[numLines] = line;
+            // TODO: update the line count
+            if (numLines + 1 < MAX_LINES) {
+                numLines++;
             }
         }
     }
@@ -62,8 +67,9 @@ public class Poem {
         printUnderlined(title);
         System.out.println();
 
-        for (int i = 0; i < numLines; ++i) {
-            System.out.println(lines[i]);
+        for (int j = 0; j < numLines; ++j) {
+            // TODO: print each line of the poem
+            System.out.println(lines[j]);
         }
     }
     // ---------- Private Methods ----------------------------------------- //
