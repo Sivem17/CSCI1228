@@ -38,7 +38,6 @@ public class DescribePolygons {
             }
             p = new RegularPolygon(numSides, lengthSides);
             printReport(p);
-            System.out.println();
             System.out.print("How many sides does the polygon have? ");
             numSides = kbd.nextInt();
             kbd.nextLine();
@@ -51,6 +50,5 @@ public class DescribePolygons {
                 + "Length of each side: " + p.getLengthOfSides() + "\n"
                 + "Perimeter length: " + p.getPerimeter() + "\n"
                 + "Polygon area: " + p.getArea());
-        System.out.println();
     }
 }
