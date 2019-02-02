@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
+ * A program which plays songs in random order.
  *
  * @author Aitezaz Siddiqi (A00431079)
  */
@@ -13,26 +14,34 @@ public class SongPlayer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        //A Scanner
         Scanner kbd = new Scanner(System.in);
 
+        //All variables.
         Song[] song = new Song[20];
         String songTitle, songLength;
-
         int numSongs = 0;
 
+        //Calls the printIntroduction method.
         printIntroduction();
 
         for (int i = 0; i < song.length; ++i) {
-
+            
             System.out.print("Enter song title: ");
             songTitle = kbd.nextLine();
+            
             if (songTitle.isEmpty()) {
                 break;
             }
+            
             System.out.print("Enter song length (e.g. 3:07): ");
             songLength = kbd.nextLine();
-            System.out.println("The song " + songTitle + " (" + songLength + ") has been added.");
+            System.out.println("The song " + songTitle + " ("
+                    + songLength + ") has been added.");
+            
             song[i] = new Song(songTitle, songLength);
+            
             numSongs++;
         }
 
@@ -71,7 +80,6 @@ public class SongPlayer {
         for (int i = 0; i < songs.length; ++i) {
             songs[i] = i;
         }
-        System.out.println(Arrays.toString(songs));
 
         for (int i = 0; i < songs.length; ++i) {
             int swapLoc = (int) (howMany * Math.random());
