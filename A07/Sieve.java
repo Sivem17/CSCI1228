@@ -21,80 +21,81 @@ public class Sieve {
     public static void main(String[] args) {
         Scanner kbd = new Scanner(System.in);
 
-        LinkedList<Integer> myWords = new LinkedList<>();
         ArrayList<Integer> array = new ArrayList<>();
-        int upperLimit, countLines = 0;
+        LinkedList<Integer> myWords = new LinkedList<>();
+        int upperLimit, countLines = 0, lines;
+        String answer, answer2;
 
         printIntroduction();
         upperLimit = getUpperLimit(kbd);
-        checkForMode(kbd, upperLimit,  countLines,  array);
-        createListOfPossiblePrimes(upperLimit, myWords);
 
-        countLines = createListOfPrimes(myWords, countLines, array);
-
-        System.out.println();
-//        displayPrimes(upperLimit, countLines, array);
-
-    }
-
-    private static int createListOfPrimes(LinkedList<Integer> myWords, int countLines, ArrayList<Integer> array) {
-        int lines;
-        while (!(myWords.isEmpty())) {
-            System.out.println("Possibles: ");
-            countLines = 0;
-            for (int i = 0; i < myWords.size(); ++i) {
-                System.out.printf("%6d ", myWords.get(i));
-                countLines++;
-                if (countLines == 10) {
-                    System.out.println();
-                    countLines = 0;
-                }
-            }
-            System.out.println();
-            System.out.println("Found Prime: " + myWords.get(0));
-            lines = myWords.get(0);
-            array.add(myWords.get(0));
-            myWords.remove(0);
-            for (int i = 0; i < myWords.size(); ++i) {
-                if (myWords.get(i) % lines == 0) {
-                    myWords.remove(i);
-                }
-            }
-        }
-        return countLines;
-    }
-
-    private static void displayPrimes(int upperLimit, int counter, ArrayList<Integer> array) {
-        System.out.println("Primes upto " + upperLimit + ":");
-        for (int i = 0; i < array.size(); ++i) {
-            System.out.printf("%6d ", array.get(i));
-            counter++;
-            if (counter == 10) {
-                System.out.println();
-                counter = 0;
-            }
-        }
-    }
-
-    private static void checkForMode(Scanner kbd,int upperLimit, int countLines, ArrayList<Integer> array) {
-        String answer;
-        String answer2;
         System.out.print("Shall I tell you how it's going? ");
         answer = kbd.nextLine().toUpperCase();
+//        createPossiblePrimeList(upperLimit, myWords);
+//        while (!(myWords.isEmpty())) {
+//            array.add(myWords.get(0));
+//            lines = myWords.get(0);
+//            myWords.remove(0);
+//            for (int i = 0; i < myWords.size(); ++i) {
+//                if (myWords.get(i) % lines == 0) {
+//                    myWords.remove(i);
+//                }
+//            }
+//        }
         if (answer.startsWith("Y")) {
-
             System.out.print("Shall I tell you in great detail? ");
             answer2 = kbd.nextLine().toUpperCase();
-
+            createPossiblePrimeList(upperLimit, myWords);
+            while (!(myWords.isEmpty())) {
+                array.add(myWords.get(0));
+                lines = myWords.get(0);
+                myWords.remove(0);
+                for (int i = 0; i < myWords.size(); ++i) {
+                    if (myWords.get(i) % lines == 0) {
+                        myWords.remove(i);
+                    }
+                }
+            }
+            displayPossiblePrimes(countLines, myWords);
             if (answer2.startsWith("Y")) {
+//               System.out.println("Removing " + myWords.get(i) + " from possibles");
             }
 
         } else {
+            System.out.println("Primes upto " + upperLimit + ":");
             displayPrimes(upperLimit, countLines, array);
+        }
+
+    }
+
+    private static void displayPrimes(int upperLimit, int countLines, ArrayList<Integer> array) {
+        countLines = 0;
+        for (int i = 0; i < array.size(); ++i) {
+            System.out.printf("%6d ", array.get(i));
+            countLines++;
+            if (countLines == 10) {
+                System.out.println();
+                countLines = 0;
+            }
         }
     }
 
-    private static void createListOfPossiblePrimes(int upperLimit, LinkedList<Integer> myWords) {
+    private static void displayPossiblePrimes(int countLines, LinkedList<Integer> myWords) {
+        System.out.println("Possibles: ");
+        countLines = 0;
+        for (int i = 0; i < myWords.size(); ++i) {
+            System.out.printf("%6d ", myWords.get(i));
+            countLines++;
+            if (countLines == 10) {
+                System.out.println();
+                countLines = 0;
+            }
+        }
+        System.out.println();
+        System.out.println("Found Prime: " + myWords.get(0));
+    }
+
+    private static void createPossiblePrimeList(int upperLimit, LinkedList<Integer> myWords) {
         for (int i = 2; i <= upperLimit; ++i) {
             myWords.add(i);
         }
@@ -113,6 +114,6 @@ public class Sieve {
                 + "---------------------\n\n"
                 + "by Aitezaz Siddiqi (A00431079)\n\n"
                 + "This program computes the prime numbers using a method "
-                + "called the sieve of \nEratosthenes.\n");
+                + "called the sieve of Eratosthenes.");
     }
 }
