@@ -1,8 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+CSCI 1228 Submission Viewer
+
+Version β -- Winter 2017
+
+Student ID:
+
+Submission to view:
+
+A00431079's submissions for A07
+Sieve.java
+
 package a07;
 
 import java.util.ArrayList;
@@ -10,6 +16,9 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
+ * This assignment manipulates Lists in order to find all the primes up to a
+ * number provided by the user.It optionally reports the steps of the algorithm
+ * as it goes along.
  *
  * @author Aitezaz Siddiqi (A00431079)
  */
@@ -20,47 +29,73 @@ public class Sieve {
      */
     public static void main(String[] args) {
 
-        //A Scanner.
+        //A scanner variable.
         Scanner kbd = new Scanner(System.in);
 
-        //All variables and list.
+        //All variables and lists.
         ArrayList<Integer> primes = new ArrayList<>();
         LinkedList<Integer> possiblePrimes = new LinkedList<>();
         int upperLimit, countLines = 0, firstElement;
-        String answer, answer2;
+        String firstAnswer, secondAnswer;
 
-        //Call to printIntroduction method.
+        //Call the printIntroduction method.
         printIntroduction();
 
-        //Call to getUpperLimit method.
+        //Call the getUpperLimit method.
         upperLimit = getUpperLimit(kbd);
 
-//        //Call to checkForVerboseMode method.
-//        checkForVerboseMode(kbd, countLines, possiblePrimes, upperLimit, primes);
-        System.out.print("Shall I tell you how it's going? ");
-        answer = kbd.nextLine().toUpperCase();
+        firstAnswer = checkForMode(kbd);
+        secondAnswer = answerTwo(firstAnswer, kbd);
 
-        //Call to createPossiblePrimeList method.
+        //Call createPossiblePrimeList to create possible list.
         createPossiblePrimeList(upperLimit, possiblePrimes);
 
+        //While the list of possibly-prime numbers is not empty. 
         while (!(possiblePrimes.isEmpty())) {
-            primes.add(possiblePrimes.get(0));
 
-            //To remember the number.
+            //Add to the prime list.
+            primes.add(possiblePrimes.get(0));
+            //Remember the prime.
             firstElement = possiblePrimes.get(0);
 
-            if (answer.startsWith("Y")) {
-                System.out.print("Shall I tell you in great detail? ");
-                answer2 = kbd.nextLine().toUpperCase();
+            //Checks the user respond.
+            if (firstAnswer.startsWith("Y")) {
+
+                //Displays the possible primes.
                 displayPossiblePrimes(countLines, possiblePrimes);
+
+                //Checks the user respond again.
+                if (secondAnswer.startsWith("Y")) {
+
+                    //Displays what number is being removed.
+                    for (int i = 0; i < possiblePrimes.size(); ++i) {
+                        if (possiblePrimes.get(i) % firstElement == 0) {
+                            System.out.println("Removing " + possiblePrimes.
+                                    get(i) + " from possibles");
+                        }
+                    }
+
+                }
             }
 
-            removePossiblePrimeFromList(possiblePrimes, firstElement);
+            //Calls the removePossiblePrimesFromList.
+            removePossiblePrimes(possiblePrimes, firstElement);
         }
+
+        //Displays the prime upto upper limit.
+        System.out.println("Primes upto " + upperLimit + ":");
+        displayPrimes(countLines, primes);
 
     }
 
-    private static void removePossiblePrimeFromList(LinkedList<Integer> possiblePrimes, int firstElement) {
+    /**
+     * A method which removes possible primes from the possiblePrime list.
+     *
+     * @param possiblePrimes List of possible primes.
+     * @param firstElement The first number in the possible prime list.
+     */
+    private static void removePossiblePrimes(LinkedList<Integer> possiblePrimes,
+            int firstElement) {
         possiblePrimes.remove(0);
         for (int i = 0; i < possiblePrimes.size(); ++i) {
             if (possiblePrimes.get(i) % firstElement == 0) {
@@ -69,30 +104,47 @@ public class Sieve {
         }
     }
 
-    private static void checkForVerboseMode(Scanner kbd, int countLines, LinkedList<Integer> myWords, int upperLimit, ArrayList<Integer> array) {
+    /**
+     * A method which checks for the mode depending on the user respond.
+     *
+     * @param kbd A scanner.
+     * @return the user response.
+     */
+    private static String checkForMode(Scanner kbd) {
         String answer;
-        String answer2;
         System.out.print("Shall I tell you how it's going? ");
         answer = kbd.nextLine().toUpperCase();
+        return answer;
+    }
+
+    /**
+     * A method which checks for the user response if the user responded
+     * affirmatively in the first question.
+     *
+     * @param answer the user response to the first question.
+     * @param kbd A scanner.
+     * @return the user response.
+     */
+    private static String answerTwo(String answer, Scanner kbd) {
+        String answer2 = null;
         if (answer.startsWith("Y")) {
             System.out.print("Shall I tell you in great detail? ");
             answer2 = kbd.nextLine().toUpperCase();
-
-            displayPossiblePrimes(countLines, myWords);
-            if (answer2.startsWith("Y")) {
-//               System.out.println("Removing " + myWords.get(i) + " from possibles");
-            }
-
-        } else {
-            System.out.println("Primes upto " + upperLimit + ":");
-            displayPrimes(countLines, array);
         }
+        return answer2;
     }
 
-    private static void displayPrimes(int countLines, ArrayList<Integer> array) {
+    /**
+     * A method which prints the prime list.
+     *
+     * @param countLines line number.
+     * @param primeList primes list.
+     */
+    private static void displayPrimes(int countLines,
+            ArrayList<Integer> primeList) {
         countLines = 0;
-        for (int i = 0; i < array.size(); ++i) {
-            System.out.printf("%6d ", array.get(i));
+        for (int i = 0; i < primeList.size(); ++i) {
+            System.out.printf("%6d ", primeList.get(i));
             countLines++;
             if (countLines == 10) {
                 System.out.println();
@@ -101,11 +153,18 @@ public class Sieve {
         }
     }
 
-    private static void displayPossiblePrimes(int countLines, LinkedList<Integer> myWords) {
+    /**
+     * A method which prints the possible prime list.
+     *
+     * @param countLines line number.
+     * @param possiblePrimeList possible prime list.
+     */
+    private static void displayPossiblePrimes(int countLines,
+            LinkedList<Integer> possiblePrimeList) {
         System.out.println("Possibles: ");
         countLines = 0;
-        for (int i = 0; i < myWords.size(); ++i) {
-            System.out.printf("%6d ", myWords.get(i));
+        for (int i = 0; i < possiblePrimeList.size(); ++i) {
+            System.out.printf("%6d ", possiblePrimeList.get(i));
             countLines++;
             if (countLines == 10) {
                 System.out.println();
@@ -113,15 +172,28 @@ public class Sieve {
             }
         }
         System.out.println();
-        System.out.println("Found Prime: " + myWords.get(0));
+        System.out.println("Found Prime: " + possiblePrimeList.get(0));
     }
 
-    private static void createPossiblePrimeList(int upperLimit, LinkedList<Integer> myWords) {
+    /**
+     * A method which creates the possible prime list.
+     *
+     * @param upperLimit the upper limit.
+     * @param possiblePrimeList possible prime list.
+     */
+    private static void createPossiblePrimeList(int upperLimit,
+            LinkedList<Integer> possiblePrimeList) {
         for (int i = 2; i <= upperLimit; ++i) {
-            myWords.add(i);
+            possiblePrimeList.add(i);
         }
     }
 
+    /**
+     * A method which gets the upper limit from the user.
+     *
+     * @param kbd A scanner.
+     * @return the upper limit.
+     */
     private static int getUpperLimit(Scanner kbd) {
         int upperLimit;
         System.out.print("What's the biggest number I should check? ");
@@ -130,6 +202,9 @@ public class Sieve {
         return upperLimit;
     }
 
+    /**
+     * A method which prints the introduction.
+     */
     private static void printIntroduction() {
         System.out.println("Sieve of Eratosthenes\n"
                 + "---------------------\n\n"
@@ -138,3 +213,5 @@ public class Sieve {
                 + "called the sieve of Eratosthenes.");
     }
 }
+
+Return to outline page / A07 / pass-in page
