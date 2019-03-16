@@ -1,14 +1,3 @@
-CSCI 1228 Submission Viewer
-
-Version β -- Winter 2017
-
-Student ID:
-
-Submission to view:
-
-A00431079's submissions for A07
-Sieve.java
-
 package a07;
 
 import java.util.ArrayList;
@@ -213,5 +202,3 @@ public class Sieve {
                 + "called the sieve of Eratosthenes.");
     }
 }
-
-Return to outline page / A07 / pass-in page
